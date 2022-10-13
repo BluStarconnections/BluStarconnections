@@ -6,6 +6,7 @@
             <field name="model_id" ref="crm.model_crm_lead"/>
             <field name="subject">Appointment scheduled, Awaiting Assignment {{object.date_open}}</field>
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
+            <field name="email_to">farazsoomro602@gmail.com</field>
             <field name="body_html" type="html">
                 <p style="box-sizing:border-box;margin-bottom: 0px;">Dear <t t-out="object.partner_id.name"/>,
                 </p>

@@ -25,6 +25,8 @@
     'data': [
         'data/appointment_email_external.xml',
         'data/internal_email_template.xml',
+        'data/crm_stage_data.xml',
+        # 'views/crm_lead.xml',
     ],
     'installable': True,
     'application': True,
