@@ -6,7 +6,7 @@
         custom email templates""",
 
     'description': """
-        Custom email template
+        Custom email template for BluStart connections
     """,
 
     'author': "Mediod Consulting",
@@ -24,5 +24,8 @@
     # always loaded
     'data': [
         'data/appointment_email_external.xml',
+        'data/internal_email_template.xml',
     ],
+    'installable': True,
+    'application': True,
 }
