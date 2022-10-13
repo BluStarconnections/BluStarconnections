@@ -8,15 +8,15 @@
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
             <field name="email_to">farazsoomro602@gmail.com</field>
             <field name="body_html" type="html">
-                <p style="box-sizing:border-box;margin-bottom: 0px;">Dear <t t-out="object.partner_id.name"/>,
+                <p style="box-sizing:border-box;margin:0px 0 12px 0">Dear <t t-out="object.partner_id.name"/>,
                 </p>
-                <p style="box-sizing:border-box;margin-bottom: 0px;">Find below the appointment details,
+                <p style="box-sizing:border-box;margin:0px 0 12px 0">Find below the appointment details,
                 </p>
-                <p style="box-sizing:border-box;margin-bottom: 0px;">Appointment Date:
-                    <t t-out="object.date_open" t-options="{'widget':'date'}"/>
+                <p style="box-sizing:border-box;margin:0px 0 12px 0">Appointment Date:
+                    <t t-out="object.date_open" t-options="{'widget':'date'}"/>,
                 </p>
-                <p style="box-sizing:border-box;margin-bottom: 0px;">Name:
-                    <t t-out="object.contact_name"/>
+                <p style="box-sizing:border-box;margin:0px 0 12px 0">Name:
+                    <t t-out="object.contact_name"/>,
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Job Position: <t t-out="object.function"/>,
                 </p>
