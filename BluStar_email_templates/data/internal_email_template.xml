@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="appointment_email_internal" model="mail.template">
+            <field name="name">Internal Email</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">Appointment scheduled, Awaiting Assignment {{object.date_open}}</field>
+            <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
+            <field name="body_html" type="html">
+                <p style="box-sizing:border-box;margin-bottom: 0px;">Dear <t t-out="object.partner_id.name"/>,
+                </p>
+                <p style="box-sizing:border-box;margin-bottom: 0px;">Find below the appointment details,
+                </p>
+                <p style="box-sizing:border-box;margin-bottom: 0px;">Appointment Date:
+                    <t t-out="object.date_open" t-options="{'widget':'date'}"/>
+                </p>
+                <p style="box-sizing:border-box;margin-bottom: 0px;">Name:
+                    <t t-out="object.contact_name"/>
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Job Position: <t t-out="object.function"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Email:<![CDATA[ ]]>
+                    <t t-out="object.email_from"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Company: <t t-out="object.company_id.name"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">EIN:<![CDATA[ ]]>
+                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.ein"/></span>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Address:<![CDATA[ ]]>
+                    <t t-out="object.partner_id.street"/>,<![CDATA[ ]]>
+                    <t t-out="object.partner_id.city"/>,<![CDATA[ ]]>
+                    <t t-out="object.partner_id.state_id.name"/>,<![CDATA[ ]]>
+                    <t t-out="object.partner_id.zip"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Phone:<![CDATA[ ]]>
+                    <t t-out="object.phone"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Fund Manager:<![CDATA[ ]]>
+                    <t t-out="object.fund_manager"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">TPA:<![CDATA[ ]]>
+                    <t t-out="object.tpa"/>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Active Participants:<![CDATA[ ]]>
+                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.number_of_participants"/></span>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Assets:<![CDATA[ ]]>
+                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.assets"/></span>,
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Advisor:<![CDATA[ ]]>
+                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.financial_advisor"/></span>,
+                </p>
+                <p style="box-sizing:border-box;margin-bottom: 0px;">Comments for Appointment:<![CDATA[ ]]>
+                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.description"/></span>
+                    <br/>
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">
+                    <span style="color: #222222;font-size: small">--</span>
+                    <br/>
+                    <img src="https://lh4.googleusercontent.com/2MQOuUTazilsG_PtCybrF8vJfciCPWfCaUCUwCSRs1SixHmfCoXbU51xFVa45v5XAkNsQY5CqoWIYVSD1fU76FYyakbEaKC5bm8t3N0JUC_GPUcdqoKH3zSn4FiJRrAxOvLt-U_h"
+                         style="border-style:none;box-sizing:border-box;vertical-align:middle;width: 25%;" width="25%"
+                         height="66"/>
+                    <br/>
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">
+                    <b style="box-sizing:border-box;font-weight: 500;color: #00529b;font-size: x-small">
+                        Better Relationships. Better Benefits.
+                    </b>
+                    <br/>
+                </p>
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Production Team
+                    <br/>
+                    <a href="https://info@blustarconnections.com"
+                       style="text-decoration:none;box-sizing:border-box;background-color:transparent;color:#008f8c;">
+                        info@blustarconnections.com
+                    </a>
+                    <br/>407-309-2540
+                    <br/>
+                </p>
+                <p style="box-sizing:border-box;margin-bottom: 0px;">
+                    <br/>
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
