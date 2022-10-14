@@ -15,10 +15,10 @@ class CrmLead(models.Model):
 
         return res
 
-
-
-    # def send_email(self):
-    #     external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
-    #     external_mail.send_mail(self.id, force_send=True)
-    #     external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
-    #     internal_mail.send_mail(self.id, force_send=True)
+    @api.onchange('stage_id')
+    def _onchange_stage_id(self):
+        if self.stage_id.name.lower() in ('appointment needed', 'scheduled'):
+            external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
+            internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
+            external_mail.send_mail(self._origin.id, force_send=True)
+            internal_mail.send_mail(self._origin.id, force_send=True)
