@@ -4,57 +4,94 @@
         <record id="appointment_email_internal" model="mail.template">
             <field name="name">Internal Email</field>
             <field name="model_id" ref="crm.model_crm_lead"/>
-            <field name="subject">Appointment scheduled, Awaiting Assignment {{object.date_open}}</field>
+            <field name="subject">Appointment scheduled, Awaiting Assignment {{object.next_appointment}}</field>
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
             <field name="email_to">farazsoomro602@gmail.com</field>
             <field name="body_html" type="html">
-                <p style="box-sizing:border-box;margin:0px 0 12px 0">Dear <t t-out="object.partner_id.name"/>,
-                </p>
                 <p style="box-sizing:border-box;margin:0px 0 12px 0">Find below the appointment details,
                 </p>
                 <p style="box-sizing:border-box;margin:0px 0 12px 0">Appointment Date:
-                    <t t-out="object.date_open" t-options="{'widget':'date'}"/>,
+                    <t t-if="object.next_appointment">
+                        <t t-out="object.next_appointment"/>,
+                    </t>
                 </p>
                 <p style="box-sizing:border-box;margin:0px 0 12px 0">Name:
-                    <t t-out="object.contact_name"/>,
+                    <t t-if="object.contact_first_name or object.contact_last_name">
+                        <t t-out="object.contact_first_name"/>
+                        <t t-out="object.contact_last_name"/>,
+                    </t>
                 </p>
-                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Job Position: <t t-out="object.function"/>,
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Job Position:
+                    <t t-if="object.function">
+                        <t t-out="object.function"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Email:<![CDATA[ ]]>
-                    <t t-out="object.email_from"/>,
+                    <t t-if="object.primary_email">
+                        <t t-out="object.primary_email"/>,
+                    </t>
                 </p>
-                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Company: <t t-out="object.company_id.name"/>,
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Company:
+                    <t t-if="object.partner_name" t-out="object.partner_name"/>
+                    <t t-else="" t-out="object.name"/>,
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">EIN:<![CDATA[ ]]>
-                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.ein"/></span>,
+                    <t t-if="object.ein">
+                        <t t-out="object.ein"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Address:<![CDATA[ ]]>
-                    <t t-out="object.partner_id.street"/>,<![CDATA[ ]]>
-                    <t t-out="object.partner_id.city"/>,<![CDATA[ ]]>
-                    <t t-out="object.partner_id.state_id.name"/>,<![CDATA[ ]]>
-                    <t t-out="object.partner_id.zip"/>,
+                    <t t-if="object.partner_id.street">
+                        <t t-out="object.partner_id.street"/>,
+                    </t>
+                    <![CDATA[ ]]>
+                    <t t-if="object.partner_id.city">
+                        <t t-out="object.partner_id.city"/>,
+                    </t>
+                    <![CDATA[ ]]>
+                    <t t-if="object.partner_id.state_id.name">
+                        <t t-out="object.partner_id.state_id.name"/>,
+                    </t>
+                    <![CDATA[ ]]>
+                    <t t-if="object.partner_id.zip">
+                        <t t-out="object.partner_id.zip"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Phone:<![CDATA[ ]]>
-                    <t t-out="object.phone"/>,
+                    <t t-if="object.contact_phone">
+                        <t t-out="object.contact_phone"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Fund Manager:<![CDATA[ ]]>
-                    <t t-out="object.fund_manager"/>,
+                    <t t-if="object.fund_manager">
+                        <t t-out="object.fund_manager"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">TPA:<![CDATA[ ]]>
-                    <t t-out="object.tpa"/>,
+                    <t t-if="object.tpa">
+                        <t t-out="object.tpa"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Active Participants:<![CDATA[ ]]>
-                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.number_of_participants"/></span>,
+                    <t t-if="object.number_of_participants">
+                        <t t-out="object.number_of_participants"/>,
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Assets:<![CDATA[ ]]>
-                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.assets"/></span>,
+                    <span style="color: #444b5a;font-size: 13px">
+                        <t t-out="object.assets"/>
+                    </span>
+                    ,
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Advisor:<![CDATA[ ]]>
-                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.financial_advisor"/></span>,
+                    <t t-if="object.financial_advisor">
+                        <t t-out="object.financial_advisor"/>,
+                    </t>
                 </p>
                 <p style="box-sizing:border-box;margin-bottom: 0px;">Comments for Appointment:<![CDATA[ ]]>
-                    <span style="color: #444b5a;font-size: 13px"><t t-out="object.description"/></span>
-                    <br/>
+                    <t t-if="object.area_of_concern">
+                        <t t-out="object.area_of_concern"/>
+                    </t>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">
                     <span style="color: #222222;font-size: small">--</span>
