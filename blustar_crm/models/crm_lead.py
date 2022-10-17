@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
-
+from odoo import fields, models
 
 
 class PosOrder(models.Model):
@@ -63,4 +62,8 @@ class PosOrder(models.Model):
     result_code = fields.Char('Result code')
     financial_advisor = fields.Char('Assigned Advisor')
 
-
+    # by faraz
+    date_of_stage_change = fields.Datetime(string='Date of Stage change')
+    check_email = fields.Boolean(string="Check email")
+    check_date = fields.Boolean(string="Check date")
+    check_areacode = fields.Boolean(string="Check area code")

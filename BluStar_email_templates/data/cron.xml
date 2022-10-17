@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="check_stage_id" model="ir.cron">
+        <field name="name">CRM: operations on checking stage</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_crm_stage_for_operations()</field>
+        <field name='interval_number'>2</field>
+        <field name='interval_type'>minutes</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>
