@@ -38,22 +38,21 @@ class CrmLead(models.Model):
                 internal_mail.send_mail(self._origin.id, force_send=True)
                 self.stage_id = stage_id
 
-    def check_crm_stage_for_operations(self):
+    def check_lead_duration_in_stage(self):
         rec_ids = self.env['crm.lead'].sudo().search(
             [('stage_id.name', 'in', ('Voicemail left', 'Cancel list', 'Waiting to be rescheduled'))])
         user_id = self.env['res.users'].sudo().search([('name', '=', 'csalmon')])
+        appointment_stage = self.get_stage_id(name='Appointment Needed')
         for rec in rec_ids:
             if rec.check_email is False or rec.check_date is False or rec.check_areacode is False:
                 pass
             elif rec.date_of_stage_change:
                 duration = datetime.now() - rec.date_of_stage_change
-                if duration.days > 7:
+                if duration.days >= 7:
                     if rec.stage_id.name.lower() == 'voicemail left':
-                        stage_id = self.get_stage_id(name='Appointment Needed')
-                        rec.stage_id = stage_id
+                        rec.stage_id = appointment_stage
                         rec.user_id = user_id if user_id else rec.user_id
-                if duration.days > 60:
+                if duration.days >= 60:
                     if rec.stage_id.name.lower() in ('cancel list', 'waiting to be rescheduled'):
-                        stage_id = self.get_stage_id(name='Appointment Needed')
-                        rec.stage_id = stage_id
+                        rec.stage_id = appointment_stage
                         rec.user_id = user_id if user_id else rec.user_id
