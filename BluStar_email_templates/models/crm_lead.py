@@ -56,3 +56,13 @@ class CrmLead(models.Model):
                     if rec.stage_id.name.lower() in ('cancel list', 'waiting to be rescheduled'):
                         rec.stage_id = appointment_stage
                         rec.user_id = user_id if user_id else rec.user_id
+
+    def check_area_code(self):
+        cancel_stage = self.get_stage_id(name='Cancel list')
+        rec_ids = self.env['crm.lead'].sudo().search(
+            [('stage_id.name', '!=', 'Cancel list'), ('contact_phone', '=', False)])
+        for rec in rec_ids:
+            if rec.check_email is False or rec.check_date is False or rec.check_areacode is False:
+                pass
+            else:
+                rec.stage_id = cancel_stage
