@@ -1,75 +1,84 @@
 <?xml version="1.0"?>
 <odoo>
-
     <record id="crm_lead_form_inherit" model="ir.ui.view">
         <field name="name">crm.lead.form.inherit</field>
         <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form"/>
         <field name="arch" type="xml">
+            <!--ADDING CUSTOM FIELDS-->
             <xpath expr="//sheet//group" position="after">
-                <group col="4">
-                    <field name="partner_name"/>
-                    <field name="contact_first_name"/>
-                    <field name="contact_last_name"/>
-                    <field name="phonetic_spelling"/>
-                    <field name="function"/>
-                    <field name="contact_phone" widget="phone"/>
-                    <field name="primary_phone_type"/>
-                    <field name="primary_email" widget="email"/>
-                    <field name="secondary_first_name"/>
-                    <field name="secondary_last_name"/>
-                    <field name="sec_title"/>
-                    <field name="secondary_contact_phone" widget="phone"/>
-                    <field name="secondary_phone_type"/>
-                    <field name="secondary_email" widget="email"/>
-                    <field name="appt_status" widget="selection"/>
-                    <field name="next_appointment"/>
-                    <field name="appointment_type" widget="selection"/>
-                    <field name="ein"/>
-                    <field name="ein_date"/>
-                    <field name="assets" widget="monetary"/>
-                    <field name="number_of_participants"/>
-                    <field name="fund_manager"/>
-                    <field name="tpa"/>
-                    <field name="has_advisor"/>
-                    <field name="area_of_concern"/>
-                    <field name="surveyor"/>
-                    <field name="result_code"/>
-                    <field name="financial_advisor"/>
+                <group name="blustar_custom_fields">
+                    <group col="2">
+                        <field name="partner_name"/>
+                        <label for="street" string="Address"/>
+                        <div class="o_address_format">
+                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                        </div>
+                        <label for="street" string="City, State Zip"/>
+                        <div class="o_address_format">
+                            <field name="city" placeholder="City" class="o_address_city"/>
+                            <field name="state_id" class="o_address_state" placeholder="State"
+                                   options="{&quot;no_open&quot;: True}"/>
+                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                        </div>
+                        <field name="contact_first_name"/>
+                        <field name="contact_last_name"/>
+                        <field name="phonetic_spelling"/>
+                        <field name="function"/>
+                        <field name="contact_phone" widget="phone"/>
+                        <field name="extension"/>
+                        <field name="primary_phone_type"/>
+                        <field name="primary_email" widget="email"/>
+                        <field name="secondary_first_name"/>
+                        <field name="secondary_last_name"/>
+                        <field name="sec_title"/>
+                        <field name="secondary_contact_phone" widget="phone"/>
+                        <field name="secondary_phone_type"/>
+                        <field name="secondary_email" widget="email"/>
+                        <field name="area_code"/>
+                    </group>
+                    <group col="2">
+                        <field name="appt_status" widget="selection"/>
+                        <field name="next_appointment"/>
+                        <field name="appointment_type" widget="selection"/>
+                        <field name="ein"/>
+                        <field name="ein_date"/>
+                        <field name="assets" widget="monetary"/>
+                        <field name="number_of_participants"/>
+                        <field name="fund_manager"/>
+                        <field name="fund_manager_tenure"/>
+                        <field name="tpa"/>
+                        <field name="tpa_tenure"/>
+                        <field name="has_advisor"/>
+                        <field name="area_of_concern"/>
+                        <field name="surveyor"/>
+                        <field name="result_code"/>
+                        <field name="last_note"/>
+                        <field name="financial_advisor"/>
+                        <field name="date_of_stage_change" invisible="1"/>
+                    </group>
                 </group>
-            </xpath>
-            <!--<xpath expr="//field[@name='team_id']" position="after">
-                <field name="partner_name"/>
-                <field name="contact_first_name"/>
-                <field name="contact_last_name"/>
-                <field name="phonetic_spelling"/>
-                <field name="function"/>
-                <field name="contact_phone" widget="phone"/>
-                <field name="primary_phone_type"/>
-                <field name="primary_email" widget="email"/>
-                <field name="secondary_first_name"/>
-                <field name="secondary_last_name"/>
-                <field name="sec_title"/>
-                <field name="secondary_contact_phone" widget="phone"/>
-                <field name="secondary_phone_type"/>
-                <field name="secondary_email" widget="email"/>
             </xpath>
 
-            <xpath expr="//sheet//group" position="after">
-                <group>
-                    <field name="appt_status" widget="selection"/>
-                    <field name="next_appointment"/>
-                    <field name="appointment_type" widget="selection"/>
-                    <field name="ein"/>
-                    <field name="ein_date"/>
-                    <field name="assets" widget="monetary"/>
-                    <field name="number_of_participants"/>
-                    <field name="fund_manager"/>
-                    <field name="tpa"/>
-                </group>
-            </xpath>-->
+            <!--hide fields here-->
+            <xpath expr="//field[@name='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <!--HIDE ADDRESS DIV IN EXTRA INFORMATION TAB-->
+            <xpath expr="//page[@name='lead']//group//label[@for='street_page_lead']" position="replace"></xpath>
+            <xpath expr="//page[@name='lead']//group//div[@class='o_address_format']" position="replace"></xpath>
+
+            <!--ADDING NEW TAB FOR CHECKLIST-->
+            <xpath expr="//page[@name='lead']" position="after">
+                <page name="checklist" string="Checklist">
+                    <group>
+                        <field name="check_email"/>
+                        <field name="check_date"/>
+                        <field name="check_areacode"/>
+                    </group>
+                </page>
+            </xpath>
         </field>
     </record>
-
-
 </odoo>

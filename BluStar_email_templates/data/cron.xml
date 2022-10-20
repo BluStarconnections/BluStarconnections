@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="check_crm_lead_duration_in_stage" model="ir.cron">
+        <field name="name">CRM: Check lead duration at certain stage</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_lead_duration_in_stage()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <!--check area code-->
+    <record id="check_area_code" model="ir.cron">
+        <field name="name">CRM: Check area code</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_area_code()</field>
+        <field name='interval_number'>7</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>
