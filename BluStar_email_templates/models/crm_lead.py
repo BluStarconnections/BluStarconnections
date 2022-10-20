@@ -49,7 +49,7 @@ class CrmLead(models.Model):
     def check_lead_duration_in_stage(self):
         rec_ids = self.env['crm.lead'].sudo().search(
             [('stage_id.name', 'in', ('Voicemail left', 'Cancel list', 'Waiting to be rescheduled'))])
-        user_id = self.env['res.users'].sudo().search([('name', '=', 'csalmon')])
+        user_id = self.env['res.users'].sudo().search([('login', '=', 'csalmon@blustarconnections.com')])
         appointment_stage = self.get_stage_id(name='Appointment Needed')
         for rec in rec_ids:
             if rec.check_email is False or rec.check_date is False or rec.check_areacode is False:
