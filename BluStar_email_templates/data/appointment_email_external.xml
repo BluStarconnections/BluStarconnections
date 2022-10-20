@@ -6,19 +6,20 @@
             <field name="model_id" ref="crm.model_crm_lead"/>
             <field name="subject">Appointment scheduled</field>
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
-            <field name="email_to">{{object.email_from}}</field>
+            <field name="email_to">{{object.email_from}},{{object.primary_email}}</field>
             <field name="body_html" type="html">
                 <p style="box-sizing:border-box;margin-bottom: 0px;">
                     Dear
                     <t t-out="object.contact_first_name"/>
                 </p>
-                <p style="box-sizing:border-box;margin-bottom: 0px;">The Independent Review of your<t
-                        t-out="object.partner_name or 'company'"/><![CDATA[']]>s
-                    retirement plan is scheduled for<t t-out="object.next_appointment"/>.<![CDATA[ ]]>
+                <p style="box-sizing:border-box;margin-bottom: 0px;">The Independent Review of<![CDATA[ ]]><t
+                        t-out="object.partner_name or 'your company'"/><![CDATA[']]>s
+                    retirement plan is scheduled for<![CDATA[ ]]><t
+                            t-out="object.to_user_timezone(object.next_appointment)"/>.<![CDATA[ ]]>
                     <span>There is no cost or obligation of any kind attached to this review.</span>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">The objectives of this review will be as follows:
-                    <br/>1. Analyze all costs associated with the current plan
+                    <br/>1. Analyze all costs associated with the current plan.
                     <br/>2. Provide solutions to help increase plan efficiency through fee reductions and overall plan
                     design.
                     <br/>3. Ensure the plan is compliant and structured to achieve retirement goals.

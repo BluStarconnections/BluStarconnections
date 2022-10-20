@@ -58,12 +58,16 @@ class PosOrder(models.Model):
 
     has_advisor = fields.Char('Has Advisor:')
     area_of_concern = fields.Char('Area of concern')
-    surveyor = fields.Char('Las contracted by')
+    surveyor = fields.Char('Last contracted by')
     result_code = fields.Char('Result code')
-    financial_advisor = fields.Char('Assigned Advisor')
+    financial_advisor = fields.Many2one('res.partner' ,string='Assigned Advisor')
 
-    # by faraz
     date_of_stage_change = fields.Datetime(string='Date of Stage change')
     check_email = fields.Boolean(string="Check email")
     check_date = fields.Boolean(string="Check date")
     check_areacode = fields.Boolean(string="Check area code")
+    extension = fields.Char(string="Extension")
+    area_code = fields.Char(string='Area Code')
+    fund_manager_tenure = fields.Char(string='Fund Manager Tenure')
+    tpa_tenure = fields.Char(string='TPA Tenure')
+    last_note = fields.Char(string='Last note')

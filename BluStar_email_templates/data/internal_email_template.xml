@@ -4,15 +4,15 @@
         <record id="appointment_email_internal" model="mail.template">
             <field name="name">Internal Email</field>
             <field name="model_id" ref="crm.model_crm_lead"/>
-            <field name="subject">Appointment scheduled, Awaiting Assignment {{object.next_appointment}}</field>
+            <field name="subject">Appointment scheduled, Awaiting Assignment {{object.to_user_timezone(object.next_appointment)}}</field>
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
-            <field name="email_to">farazsoomro602@gmail.com</field>
+            <field name="email_to">info@blustarconnections.com</field>
             <field name="body_html" type="html">
                 <p style="box-sizing:border-box;margin:0px 0 12px 0">Find below the appointment details,
                 </p>
                 <p style="box-sizing:border-box;margin:0px 0 12px 0">Appointment Date:
                     <t t-if="object.next_appointment">
-                        <t t-out="object.next_appointment"/>,
+                        <t t-out="object.to_user_timezone(object.next_appointment)"/>,
                     </t>
                 </p>
                 <p style="box-sizing:border-box;margin:0px 0 12px 0">Name:
@@ -85,7 +85,7 @@
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">Advisor:<![CDATA[ ]]>
                     <t t-if="object.financial_advisor">
-                        <t t-out="object.financial_advisor"/>,
+                        <t t-out="object.financial_advisor.name"/>,
                     </t>
                 </p>
                 <p style="box-sizing:border-box;margin-bottom: 0px;">Comments for Appointment:<![CDATA[ ]]>

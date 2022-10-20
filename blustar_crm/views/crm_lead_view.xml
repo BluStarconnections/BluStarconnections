@@ -13,19 +13,20 @@
                         <label for="street" string="Address"/>
                         <div class="o_address_format">
                             <field name="street" placeholder="Street..." class="o_address_street"/>
-                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                        </div>
+                        <label for="street" string="City, State Zip"/>
+                        <div class="o_address_format">
                             <field name="city" placeholder="City" class="o_address_city"/>
                             <field name="state_id" class="o_address_state" placeholder="State"
                                    options="{&quot;no_open&quot;: True}"/>
                             <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                            <field name="country_id" placeholder="Country" class="o_address_country"
-                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                         </div>
                         <field name="contact_first_name"/>
                         <field name="contact_last_name"/>
                         <field name="phonetic_spelling"/>
                         <field name="function"/>
                         <field name="contact_phone" widget="phone"/>
+                        <field name="extension"/>
                         <field name="primary_phone_type"/>
                         <field name="primary_email" widget="email"/>
                         <field name="secondary_first_name"/>
@@ -34,6 +35,7 @@
                         <field name="secondary_contact_phone" widget="phone"/>
                         <field name="secondary_phone_type"/>
                         <field name="secondary_email" widget="email"/>
+                        <field name="area_code"/>
                     </group>
                     <group col="2">
                         <field name="appt_status" widget="selection"/>
@@ -44,15 +46,23 @@
                         <field name="assets" widget="monetary"/>
                         <field name="number_of_participants"/>
                         <field name="fund_manager"/>
+                        <field name="fund_manager_tenure"/>
                         <field name="tpa"/>
+                        <field name="tpa_tenure"/>
                         <field name="has_advisor"/>
                         <field name="area_of_concern"/>
                         <field name="surveyor"/>
                         <field name="result_code"/>
+                        <field name="last_note"/>
                         <field name="financial_advisor"/>
                         <field name="date_of_stage_change" invisible="1"/>
                     </group>
                 </group>
+            </xpath>
+
+            <!--hide fields here-->
+            <xpath expr="//field[@name='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
 
             <!--HIDE ADDRESS DIV IN EXTRA INFORMATION TAB-->
