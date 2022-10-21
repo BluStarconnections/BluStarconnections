@@ -9,72 +9,40 @@
 			<field name="email_to">{{object.email_from}},{{object.primary_email}}</field>
 			<field name="body_html" type="html">
 				<p style="box-sizing:border-box;margin-bottom: 0px;">
-   Dear   
-   
-					<t t-out="object.contact_first_name"/>
-				</p>
-				<br/>
-				<p style="box-sizing:border-box;margin-bottom: 0px;">
-   The Independent Review of your company
-					<![CDATA[']]>s
+   Dear   <t t-out="object.contact_first_name" contenteditable="false" data-oe-t-inline="true"></t>
+</p><p style="margin-bottom: 0px;"><br></p><p style="box-sizing:border-box;margin-bottom: 0px;">
+   The Independent Review of <t t-out="object.partner_name" contenteditable="false" data-oe-t-inline="true"></t>
    retirement plan is scheduled for
-   
-					<t t-if="object.next_appointment" data-oe-t-group="0" data-oe-t-group-active="true" data-oe-t-inline="true">
-						<t t-out="object.to_user_timezone(object.next_appointment)" contenteditable="false" data-oe-t-inline="true"></t>
-      ,
-   
-					</t>
-   .
-					<![CDATA[ ]]>
-				</p>
-				<br/>
-				<p>There is no cost or obligation of any kind attached to this review.</p>
-				
-				<p style="margin:0px 0 12px 0;box-sizing:border-box;">The objectives of this review will be as follows:
-   
-					<br/>1. Analyze all costs associated with the current plan
-   
-					<br/>2. Provide solutions to help increase plan efficiency through fee reductions and overall plan
+   <t t-if="object.next_appointment" data-oe-t-group="0" data-oe-t-group-active="true" data-oe-t-inline="true">
+                        <t t-out="object.to_user_timezone(object.next_appointment)" contenteditable="false" data-oe-t-inline="true" oe-keep-contenteditable=""></t>,
+                    </t>
+   .<!--[CDATA[ ]]-->
+</p><p style="margin-bottom: 0px;"><br></p><p>There is no cost or obligation of any kind attached to this review.</p><p style="margin-bottom: 0px;"><br></p><p style="margin:0px 0 12px 0;box-sizing:border-box;">The objectives of this review will be as follows:
+   <br>1. Analyze all costs associated with the current plan
+   <br>2. Provide solutions to help increase plan efficiency through fee reductions and overall plan
    design.
-   
-					<br/>3. Ensure the plan is compliant and structured to achieve retirement goals.
-   
-					<span>
-						<br/>To make the meeting more time efficient, please have the most recent fee disclosure available at the meeting or attach the disclosure in a reply to this email
-   
-					</span>
-				</p>
-				<p style="margin:0px 0 12px 0;box-sizing:border-box;">
-					<span>Neither the retirement specialist conducting the review nor BluStar are affiliated with your current providers. Although monitoring fees is a fiduciary responsibility, this meeting is not required by the Department of Labor.
-						<br/>
-						<br/>
-   We will send you a confirmation email with the retirement specialist's information attached shortly.
-						<br/>
-						<br/>
-   For any additional questions, please reach a BluStar representative by simply replying to this email or calling 407-309-2540. 
-						<br/>
-						<br/>
-					</span>
-				</p>
-				<p style="margin:0px 0 12px 0;box-sizing:border-box;">
-					<b style="box-sizing:border-box;font-weight:500;color: #00529b;font-size: x-small">Better
+   <br>3. Ensure the plan is compliant and structured to achieve retirement goals.
+   <span><br>To make the meeting more time efficient, please have the most recent fee disclosure available at the meeting or attach the disclosure in a reply to this email
+   </span>
+</p><p style="margin:0px 0 12px 0;box-sizing:border-box;">
+   <span>Neither the retirement specialist conducting the review nor BluStar are affiliated with your current providers. Although monitoring fees is a fiduciary responsibility, this meeting is not required by the Department of Labor.<br><br>
+   We will send you a confirmation email with the retirement specialist's information attached shortly.<br><br>
+   For any additional questions, please reach a BluStar representative by simply replying to this email or calling 407-309-2540. <br><br>
+   </span>
+</p><p style="margin:0px 0 12px 0;box-sizing:border-box;">
+   <b style="box-sizing:border-box;font-weight:500;color: #00529b;font-size: x-small">Better
    Relationships.
    Better Benefits.
    </b>
-					<br/>
-				</p>
-				<p style="margin:0px 0 12px 0;box-sizing:border-box;">Paul Aguirre
-   
-					<br/>
-   Director of Sponsor Relations
-					<br/>
-   Office: 407-309-2540
-					<br/>
-					<a href="https://info@blustarconnections.com"
-      style="text-decoration:none;box-sizing:border-box;background-color:transparent;color:#008f8c;">
+   <br>
+</p><p style="margin:0px 0 12px 0;box-sizing:border-box;">Paul Aguirre
+   <br>
+   Director of Sponsor Relations<br>
+   Office: 407-309-2540<br>
+   <a href="https://info@blustarconnections.com" style="text-decoration:none;box-sizing:border-box;background-color:transparent;color:#008f8c;">
    confirm@blustareview.com
    </a>
-				</p>
+</p>
 			</field>
 		</record>
 	</data>
