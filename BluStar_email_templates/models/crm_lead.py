@@ -15,14 +15,14 @@ class CrmLead(models.Model):
         stage_id = self.env['crm.stage'].sudo().search([('name', '=', name)])
         return stage_id
 
-    @api.model
-    def create(self, vals_list):
-        res = super(CrmLead, self).create(vals_list)
-        external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
-        internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
-        external_mail.send_mail(res.id, force_send=True)
-        internal_mail.send_mail(res.id, force_send=True)
-        return res
+    # @api.model
+    # def create(self, vals_list):
+    #     res = super(CrmLead, self).create(vals_list)
+    #     external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
+    #     internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
+    #     external_mail.send_mail(res.id, force_send=True)
+    #     internal_mail.send_mail(res.id, force_send=True)
+    #     return res
 
     def write(self, vals):
         if 'stage_id' in vals:
