@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import pytz
 from pytz import timezone
 
 from odoo import models, api, _
@@ -32,15 +31,21 @@ class CrmLead(models.Model):
     @api.onchange('stage_id')
     def _onchange_stage_id(self):
         if self.create_uid:
-            if self.check_email is False or self.check_date is False or self.check_areacode is False:
-                raise ValidationError(_("Perform checklist!"))
-            elif self.stage_id.name.lower() in ('appointment needed', 'scheduled'):
-                    stage_id = self.stage_id.id
-                    external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
-                    internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
-                    external_mail.send_mail(self._origin.id, force_send=True)
-                    internal_mail.send_mail(self._origin.id, force_send=True)
-                    self.stage_id = stage_id
+            stage_id = self.stage_id.id
+            external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
+            internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
+            if self.stage_id.name.lower() == 'scheduled':
+                if self.check_email is False or self.check_date is False or self.check_areacode is False:
+                    raise ValidationError(_("Perform checklist!"))
+            elif self.stage_id.name.lower() == 'scheduled':
+                external_mail.send_mail(self._origin.id, force_send=True)
+                internal_mail.send_mail(self._origin.id, force_send=True)
+                self.stage_id = stage_id
+            elif self.stage_id.name.lower() in ('appointment needed', 'needs confirmed est',
+                                                'needs confirmed cst', 'needs confirmed mst',
+                                                'needs confirmed pst'):
+                internal_mail.send_mail(self._origin.id, force_send=True)
+                self.stage_id = stage_id
 
     # cron job method to check lead duration in a certain stage
     # move rec to "appointment needed" stage, if
