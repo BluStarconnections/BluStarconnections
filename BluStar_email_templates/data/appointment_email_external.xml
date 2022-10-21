@@ -13,38 +13,21 @@
                 </p>
                 <p style="box-sizing:border-box;margin-bottom: 0px;">The Independent Review of your company<![CDATA[']]>s
                     retirement plan is scheduled for <!--{{ object.date_open }}--><t t-out="object.date_open" t-options="{'widget':'date'}"/>.<![CDATA[ ]]>
-                    <span>There is no cost or obligation of any kind attached to this review.</span>
                 </p>
+                <p>There is no cost or obligation of any kind attached to this review.</p>
+
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">The objectives of this review will be as follows:
                     <br/>1. Analyze all costs associated with the current plan
                     <br/>2. Provide solutions to help increase plan efficiency through fee reductions and overall plan
                     design.
                     <br/>3. Ensure the plan is compliant and structured to achieve retirement goals.
-                    <span><br/>Conducting a review with an independent retirement specialist, who is in no way
-                        compensated by
-                        your plan, is the best way to ensure fees remain the lowest possible by keeping them in line
-                        with
-                        the most competitive market rates currently available. Therefore, neither the retirement
-                        specialist
-                        conducting the review nor BluStar are affiliated with your current providers.
+                    <span><br/>To make the meeting more time efficient, please have the most recent fee disclosure available at the meeting or attach the disclosure in a reply to this email
                     </span>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">
-                    <span>BluStar maintains a nationwide network of pre-qualified licensed retirement specialists whom
-                        are
-                        assigned to each review based on distinct criteria including plan size, region, and any needs
-                        specific to your plan.<![CDATA[ ]]>Prior to the meeting you will receive an email with information
-                        pertaining to the retirement specialist attached to your review. Although monitoring fees is a
-                        fiduciary responsibility, this meeting is not required by the Department of Labor.<br/>For any
-                        additional questions, please reach a BluStar representative by simply replying to this email or
-                        calling 407-309-2540.<br/>
-                        <span style="color: #222222;font-size: small">--</span>
-                        <br/>
-                        <img src="https://lh4.googleusercontent.com/2MQOuUTazilsG_PtCybrF8vJfciCPWfCaUCUwCSRs1SixHmfCoXbU51xFVa45v5XAkNsQY5CqoWIYVSD1fU76FYyakbEaKC5bm8t3N0JUC_GPUcdqoKH3zSn4FiJRrAxOvLt-U_h"
-                             style="border-style:none;box-sizing:border-box;vertical-align:middle;width: 25%;"
-                             width="25%"
-                             height="55"/>
-                        <br/>
+                    <span>Neither the retirement specialist conducting the review nor BluStar are affiliated with your current providers. Although monitoring fees is a fiduciary responsibility, this meeting is not required by the Department of Labor.<br/><br/>
+                        We will send you a confirmation email with the retirement specialist's information attached shortly.<br/><br/>
+                        For any additional questions, please reach a BluStar representative by simply replying to this email or calling 407-309-2540. <br/><br/>
                     </span>
                 </p>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box;">
@@ -54,13 +37,16 @@
                     </b>
                     <br/>
                 </p>
-                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Production Team
+                <p style="margin:0px 0 12px 0;box-sizing:border-box;">Paul Aguirre
                     <br/>
+                    Director of Sponsor Relations                    <br/>
+
+Office: 407-309-2540
+
                     <a href="https://info@blustarconnections.com"
                        style="text-decoration:none;box-sizing:border-box;background-color:transparent;color:#008f8c;">
-                        info@blustarconnections.com
+                        confirm@blustareview.com
                     </a>
-                    <br/>407-309-2540
                 </p>
             </field>
         </record>
