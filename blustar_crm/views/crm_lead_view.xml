@@ -38,6 +38,7 @@
                         <field name="area_code"/>
                     </group>
                     <group col="2">
+                        <field name="user_id" context="{'default_sales_team_id': team_id}" widget="many2one_avatar_user"/>
                         <field name="appt_status" widget="selection"/>
                         <field name="next_appointment"/>
                         <field name="appointment_type" widget="selection"/>
@@ -64,6 +65,9 @@
             <xpath expr="//field[@name='team_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
 
             <!--HIDE ADDRESS DIV IN EXTRA INFORMATION TAB-->
             <xpath expr="//page[@name='lead']//group//label[@for='street_page_lead']" position="replace"></xpath>
@@ -71,11 +75,22 @@
 
             <!--ADDING NEW TAB FOR CHECKLIST-->
             <xpath expr="//page[@name='lead']" position="after">
-                <page name="checklist" string="Checklist">
-                    <group>
-                        <field name="check_email"/>
+                <page name="checklist" string="Check List">
+                    <group name="checklist" col="2">
+                        <!--<field name="check_email"/>
                         <field name="check_date"/>
-                        <field name="check_areacode"/>
+                        <field name="check_areacode"/>-->
+                        <field name="first_last_name_check"/>
+                        <field name="email_check"/>
+                        <field name="address_check"/>
+                        <field name="appointment_date_time"/>
+                        <field name="appt_date_time"/>
+                        <field name="salesperson_changed_to_yourself"/>
+                        <field name="appt_type_chosen"/>
+                        <field name="notes_logged"/>
+                        <field name="area_of_concern_notes"/>
+                        <field name="info_all_updated"/>
+                        <field name="change_app_status_scheduled_awaiting"/>
                     </group>
                 </page>
             </xpath>
