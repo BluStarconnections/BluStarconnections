@@ -4,7 +4,9 @@
         <record id="appointment_email_internal" model="mail.template">
             <field name="name">Internal Email</field>
             <field name="model_id" ref="crm.model_crm_lead"/>
-            <field name="subject">Appointment scheduled, Awaiting Assignment {{object.to_user_timezone(object.next_appointment)}}</field>
+            <field name="subject">Appointment scheduled, Awaiting Assignment
+                {{object.to_user_timezone(object.next_appointment)}}
+            </field>
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
             <field name="email_to">info@blustarconnections.com</field>
             <field name="body_html" type="html">
@@ -88,7 +90,8 @@
                         <t t-out="object.financial_advisor.name"/>,
                     </t>
                 </p>
-                <p style="box-sizing:border-box;margin-bottom: 0px; font-size:10px">Comments for Appointment:<![CDATA[ ]]>
+                <p style="box-sizing:border-box;margin-bottom: 0px; font-size:10px">Comments for Appointment:
+                    <![CDATA[ ]]>
                     <t t-if="object.area_of_concern">
                         <t t-out="object.area_of_concern"/>
                     </t>

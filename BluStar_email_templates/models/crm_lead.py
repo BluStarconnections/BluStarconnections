@@ -34,13 +34,23 @@ class CrmLead(models.Model):
             stage_id = self.stage_id.id
             external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
             internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
-            if self.stage_id.name.lower() == 'scheduled':
-                if self.check_email is False or self.check_date is False or self.check_areacode is False:
+            if self.stage_id.name.lower() == 'scheduled/waiting to be assigned':
+                if self.appt_type_chosen is False \
+                        or self.salesperson_changed_to_yourself is False \
+                        or self.info_all_updated is False \
+                        or self.area_of_concern_notes is False \
+                        or self.notes_logged is False \
+                        or self.appt_date_time is False \
+                        or self.appointment_date_time is False \
+                        or self.address_check is False \
+                        or self.first_last_name_check is False \
+                        or self.email_check is False \
+                        or self.change_app_status_scheduled_awaiting is False:
                     raise ValidationError(_("Perform checklist!"))
-            elif self.stage_id.name.lower() == 'scheduled':
-                external_mail.send_mail(self._origin.id, force_send=True)
-                internal_mail.send_mail(self._origin.id, force_send=True)
-                self.stage_id = stage_id
+                else:
+                    external_mail.send_mail(self._origin.id, force_send=True)
+                    internal_mail.send_mail(self._origin.id, force_send=True)
+                    self.stage_id = stage_id
             elif self.stage_id.name.lower() in ('appointment needed', 'needs confirmed est',
                                                 'needs confirmed cst', 'needs confirmed mst',
                                                 'needs confirmed pst'):
