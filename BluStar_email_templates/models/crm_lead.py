@@ -51,9 +51,8 @@ class CrmLead(models.Model):
                     external_mail.send_mail(self._origin.id, force_send=True)
                     internal_mail.send_mail(self._origin.id, force_send=True)
                     self.stage_id = stage_id
-            elif self.stage_id.name.lower() in ('appointment needed', 'needs confirmed est',
-                                                'needs confirmed cst', 'needs confirmed mst',
-                                                'needs confirmed pst'):
+            elif self.stage_id.name.lower() in ('needs confirmed est', 'needs confirmed cst',
+                                                'needs confirmed mst', 'needs confirmed pst'):
                 internal_mail.send_mail(self._origin.id, force_send=True)
                 self.stage_id = stage_id
 
