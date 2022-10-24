@@ -23,6 +23,7 @@
 
     # always loaded
     'data': [
+        'data/appointment_remainder_email.xml',
         'data/appointment_email_external.xml',
         'data/internal_email_template.xml',
         'data/crm_stage_data.xml',

@@ -32,6 +32,7 @@ class CrmLead(models.Model):
     def _onchange_stage_id(self):
         if self.create_uid:
             stage_id = self.stage_id.id
+            appointment_remainder_mail = self.env.ref('BluStar_email_templates.appointment_remainder_email_template')
             external_mail = self.env.ref('BluStar_email_templates.appointment_email_externals')
             internal_mail = self.env.ref('BluStar_email_templates.appointment_email_internal')
             if self.stage_id.name.lower() == 'scheduled/waiting to be assigned':
@@ -53,7 +54,7 @@ class CrmLead(models.Model):
                     self.stage_id = stage_id
             elif self.stage_id.name.lower() in ('needs confirmed est', 'needs confirmed cst',
                                                 'needs confirmed mst', 'needs confirmed pst'):
-                internal_mail.send_mail(self._origin.id, force_send=True)
+                appointment_remainder_mail.send_mail(self._origin.id, force_send=True)
                 self.stage_id = stage_id
 
     # cron job method to check lead duration in a certain stage
