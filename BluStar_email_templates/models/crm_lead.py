@@ -101,6 +101,7 @@ class CrmLead(models.Model):
             return time_in_user_tz
 
     # Move "Shadow Records" to "Appointment Needed"
+
     def move_shadow_records(self):
         stage_id = self.get_stage_id(name='Appointment Needed')
         self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')]).write({'stage_id': stage_id.id})
