@@ -102,8 +102,5 @@ class CrmLead(models.Model):
 
     # Move "Shadow Records" to "Appointment Needed"
     def move_shadow_records(self):
-        shadow_records = self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')])
         stage_id = self.get_stage_id(name='Appointment Needed')
-        if shadow_records:
-            for rec in shadow_records:
-                rec.stage_id = stage_id
+        self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')]).write({'stage_id': stage_id.id})
