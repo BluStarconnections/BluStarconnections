@@ -99,3 +99,11 @@ class CrmLead(models.Model):
             user_tz = self.env.user.tz or 'utc'
             time_in_user_tz = my_date_time.astimezone(timezone(user_tz)).strftime("%Y-%m-%d %I:%M:%S %p")
             return time_in_user_tz
+
+    # Move "Shadow Records" to "Appointment Needed"
+    def move_shadow_records(self):
+        shadow_records = self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')])
+        stage_id = self.get_stage_id(name='Appointment Needed')
+        if shadow_records:
+            for rec in shadow_records:
+                rec.stage_id = stage_id
