@@ -12,7 +12,6 @@
                     Dear
                     <t t-out="object.contact_first_name"/>
                 </p>
-                <br/>
                 <p style="box-sizing:border-box;margin-bottom: 0px; font-size:10px">
                     The Independent Review of your <t t-out="object.partner_name" contenteditable="false"
                                                       data-oe-t-inline="true"></t><![CDATA[']]>s
@@ -24,9 +23,7 @@
                     </t>
                     .<![CDATA[ ]]>
                 </p>
-                <br/>
                 <p style=" font-size:10px">There is no cost or obligation of any kind attached to this review.</p>
-                <br/>
                 <p style="margin:0px 0 12px 0;box-sizing:border-box; font-size:10px">The objectives of this review will be as follows:
                     <br/>1. Analyze all costs associated with the current plan
                     <br/>2. Provide solutions to help increase plan efficiency through fee reductions and overall plan

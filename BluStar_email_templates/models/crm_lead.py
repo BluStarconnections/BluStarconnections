@@ -67,9 +67,7 @@ class CrmLead(models.Model):
         user_id = self.env['res.users'].sudo().search([('login', '=', 'csalmon@blustarconnections.com')])
         appointment_stage = self.get_stage_id(name='Appointment Needed')
         for rec in rec_ids:
-            if rec.check_email is False or rec.check_date is False or rec.check_areacode is False:
-                pass
-            elif rec.date_of_stage_change:
+            if rec.date_of_stage_change:
                 duration = datetime.now() - rec.date_of_stage_change
                 if duration.days >= 7:
                     if rec.stage_id.name.lower() == 'voicemail left':
@@ -80,17 +78,14 @@ class CrmLead(models.Model):
                         rec.stage_id = appointment_stage
                         rec.user_id = user_id if user_id else rec.user_id
 
-    # cron job method to check "primary phone" once in a week
+    # cron job method to check "area_code" once in a week
     # move records to cancel that does not have "primary contact"
     def check_area_code(self):
         cancel_stage = self.get_stage_id(name='Cancel list')
         rec_ids = self.env['crm.lead'].sudo().search(
-            [('stage_id.name', '!=', 'Cancel list'), ('contact_phone', '=', False)])
+            [('stage_id.name', '!=', 'Cancel list'), ('area_code', '=', False)])
         for rec in rec_ids:
-            if rec.check_email is False or rec.check_date is False or rec.check_areacode is False:
-                pass
-            else:
-                rec.stage_id = cancel_stage
+            rec.stage_id = cancel_stage
 
     # convert time to user timezone
     # to use in email templates
@@ -101,6 +96,7 @@ class CrmLead(models.Model):
             return time_in_user_tz
 
     # Move "Shadow Records" to "Appointment Needed"
+
     def move_shadow_records(self):
         stage_id = self.get_stage_id(name='Appointment Needed')
         self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')]).write({'stage_id': stage_id.id})
