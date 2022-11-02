@@ -118,10 +118,9 @@ class CrmLead(models.Model):
 
     def check_areacode_and_move_to_dead_area(self):
         dead_area_stage = self.get_stage_id(name='Dead Areas')
-        crm_lead_ids = self.env['crm.lead'].sudo().search([])
         area_codes = [a.name for a in self.env['area.code'].sudo().search([])]
-        for rec in crm_lead_ids:
-            if rec.area_code and rec.area_code not in area_codes:
-                rec.stage_id = dead_area_stage.id if dead_area_stage else rec.stage_id.id
-
-
+        crm_lead_ids = self.env['crm.lead'].sudo().search(
+            ['&', '&', ('stage_id', '!=', dead_area_stage.id), ('area_code', 'not in', area_codes),
+             ('area_code', '!=', False)])
+        if crm_lead_ids:
+            crm_lead_ids.write({'stage_id': dead_area_stage.id})
