@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="employee_areacode_view_form" model="ir.ui.view">
+        <field name="name">employee.areacode.view.form</field>
+        <field name="model">area.code</field>
+        <field name="arch" type="xml">
+            <form string="Employee Area code">
+                <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="employee_areacode_view_tree" model="ir.ui.view">
+        <field name="name">employee.areacode.view.tree</field>
+        <field name="model">area.code</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Area codes">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_employee_area_codes" model="ir.actions.act_window">
+        <field name="name">Area Codes</field>
+        <field name="res_model">area.code</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Area Codes"
+              parent="hr.menu_human_resources_configuration_employee"
+              id="employee_area_codes"
+              action="action_employee_area_codes"
+              sequence="2"/>
+
+    <!--Many2many field for assigned area codes in employee form view-->
+    <record id="hr_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='managers']" position="before">
+                <group name="area_codes" string="Assigned area codes">
+                    <field name="areacode_ids"
+                           widget="many2many_tags"
+                           placeholder="Add area codes..."/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

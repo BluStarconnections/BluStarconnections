@@ -19,16 +19,18 @@
     'version': '1.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['mail', 'crm'],
+    'depends': ['mail', 'crm', 'hr'],
 
     # always loaded
     'data': [
+        'security/ir.model.access.csv',
+        'data/server_actions.xml',
         'data/appointment_remainder_email.xml',
         'data/appointment_email_external.xml',
         'data/internal_email_template.xml',
         'data/crm_stage_data.xml',
-        'data/cron.xml',
-        # 'views/crm_lead.xml',
+        'data/ir_cron.xml',
+        'views/employee_areacode.xml',
     ],
     'installable': True,
     'application': True,
