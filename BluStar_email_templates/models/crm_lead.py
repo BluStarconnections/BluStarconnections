@@ -11,7 +11,7 @@ class CrmLead(models.Model):
 
     #  get stage_id from stage name
     def get_stage_id(self, name):
-        stage_id = self.env['crm.stage'].sudo().search([('name', '=', name)])
+        stage_id = self.env['crm.stage'].sudo().search([('name', '=', name)], limit=1)
         return stage_id
 
     # @api.model
@@ -121,7 +121,7 @@ class CrmLead(models.Model):
         crm_lead_ids = self.env['crm.lead'].sudo().search([])
         area_codes = [a.name for a in self.env['area.code'].sudo().search([])]
         for rec in crm_lead_ids:
-            if rec.area_code is False or rec.area_code not in area_codes:
-                rec.stage_id = dead_area_stage[0].id if dead_area_stage else rec.stage_id.id
+            if rec.area_code and rec.area_code not in area_codes:
+                rec.stage_id = dead_area_stage.id if dead_area_stage else rec.stage_id.id
 
 
