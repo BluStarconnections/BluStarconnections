@@ -11,7 +11,7 @@ class CrmLead(models.Model):
 
     #  get stage_id from stage name
     def get_stage_id(self, name):
-        stage_id = self.env['crm.stage'].sudo().search([('name', '=', name)])
+        stage_id = self.env['crm.stage'].sudo().search([('name', '=', name)], limit=1)
         return stage_id
 
     # @api.model
@@ -79,7 +79,7 @@ class CrmLead(models.Model):
                         rec.user_id = user_id if user_id else rec.user_id
 
     # cron job method to check "area_code" once in a week
-    # move records to cancel that does not have "primary contact"
+    # move records to cancel that does not have "area code"
     def check_area_code(self):
         cancel_stage = self.get_stage_id(name='Cancel list')
         rec_ids = self.env['crm.lead'].sudo().search(
@@ -100,3 +100,27 @@ class CrmLead(models.Model):
     def move_shadow_records(self):
         stage_id = self.get_stage_id(name='Appointment Needed')
         self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')]).write({'stage_id': stage_id.id})
+
+    def check_crm_app_status(self):
+        cancel_stage = self.get_stage_id(name='Cancel list')
+        confirm_stage = self.get_stage_id(name='Confirmed')
+        self.env['crm.lead'].sudo().search([('appt_status', '=', 'Cancel')]).write({'stage_id': cancel_stage.id})
+        self.env['crm.lead'].sudo().search([('appt_status', '=', 'Confirm')]).write({'stage_id': confirm_stage.id})
+
+    def remove_duplicates(self):
+        model_id = self.env['crm.lead']
+        all_recs = model_id.sudo().search([])
+        for rec in all_recs:
+            data = model_id.sudo().search([('name', '=', rec.name), ('ein', '=', rec.ein)])
+            if len(data) > 1:
+                duplicate_ids = data[:-1].ids
+                model_id.sudo().search([('id', 'in', duplicate_ids)]).write({'active': False})
+
+    def check_areacode_and_move_to_dead_area(self):
+        dead_area_stage = self.get_stage_id(name='Dead Areas')
+        area_codes = [a.name for a in self.env['area.code'].sudo().search([])]
+        crm_lead_ids = self.env['crm.lead'].sudo().search(
+            ['&', '&', ('stage_id', '!=', dead_area_stage.id), ('area_code', 'not in', area_codes),
+             ('area_code', '!=', False)])
+        if crm_lead_ids:
+            crm_lead_ids.write({'stage_id': dead_area_stage.id})
