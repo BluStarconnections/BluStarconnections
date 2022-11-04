@@ -84,3 +84,5 @@ class PosOrder(models.Model):
     fund_manager_tenure = fields.Char(string='Fund Manager Tenure')
     tpa_tenure = fields.Char(string='TPA Tenure')
     last_note = fields.Char(string='Last note')
+    survey_completed = fields.Char(string='Survey completed')
+    lead_source = fields.Char(string='Lead Source')
