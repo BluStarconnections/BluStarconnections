@@ -123,4 +123,5 @@ class CrmLead(models.Model):
             ['&', '&', ('stage_id', '!=', dead_area_stage.id), ('area_code', 'not in', area_codes),
              ('area_code', '!=', False)])
         if crm_lead_ids:
-            crm_lead_ids.write({'stage_id': dead_area_stage.id})
+            for lead in crm_lead_ids:
+                lead.write({'stage_id': dead_area_stage.id})
