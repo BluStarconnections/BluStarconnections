@@ -36,6 +36,7 @@
                         <field name="secondary_phone_type"/>
                         <field name="secondary_email" widget="email"/>
                         <field name="area_code"/>
+                        <field name="survey_completed"/>
                     </group>
                     <group col="2">
                         <field name="user_id" context="{'default_sales_team_id': team_id}" widget="many2one_avatar_user"/>
@@ -56,6 +57,7 @@
                         <field name="result_code"/>
                         <field name="last_note"/>
                         <field name="financial_advisor"/>
+                        <field name="lead_source"/>
                         <field name="date_of_stage_change" invisible="1"/>
                     </group>
                 </group>
