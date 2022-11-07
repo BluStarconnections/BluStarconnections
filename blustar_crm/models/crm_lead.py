@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
-
+from odoo import fields, models
 
 
 class PosOrder(models.Model):
@@ -59,8 +58,31 @@ class PosOrder(models.Model):
 
     has_advisor = fields.Char('Has Advisor:')
     area_of_concern = fields.Char('Area of concern')
-    surveyor = fields.Char('Las contracted by')
+    surveyor = fields.Char('Last contracted by')
     result_code = fields.Char('Result code')
-    financial_advisor = fields.Char('Assigned Advisor')
+    financial_advisor = fields.Many2one('res.partner', string='Assigned Advisor')
 
+    date_of_stage_change = fields.Datetime(string='Date of Stage change')
+    # check_email = fields.Boolean(string="Check email")
+    # check_date = fields.Boolean(string="Check date")
+    # check_areacode = fields.Boolean(string="Check area code")
+    appt_type_chosen = fields.Boolean(string='Appt type chosen')
+    salesperson_changed_to_yourself = fields.Boolean(string='Salesperson changed to yourself')
+    info_all_updated = fields.Boolean(string='5500 info all updated')
+    area_of_concern_notes = fields.Boolean('Notes added to area of concern')
+    notes_logged = fields.Boolean('Notes logged? Notes added to log notes')
+    appt_date_time = fields.Boolean('Appt date and time added to calendar')
+    appointment_date_time = fields.Boolean('Appointment date and time set')
+    address_check = fields.Boolean('Address confirmed')
+    first_last_name_check = fields.Boolean('First and Last name in correct fields and grammatically, correct')
+    email_check = fields.Boolean('Email confirmed and in email and primary email field')
+    change_app_status_scheduled_awaiting = fields.Boolean(
+        'Change appt status to yes and move to scheduled awaiting assignment')
 
+    extension = fields.Char(string="Extension")
+    area_code = fields.Char(string='Area Code')
+    fund_manager_tenure = fields.Char(string='Fund Manager Tenure')
+    tpa_tenure = fields.Char(string='TPA Tenure')
+    last_note = fields.Char(string='Last note')
+    survey_completed = fields.Char(string='Survey completed')
+    lead_source = fields.Char(string='Lead Source')

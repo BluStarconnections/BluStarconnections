@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_report_stage_tracking" model="ir.actions.report">
+        <field name="name">Stage Tracking Report</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">BluStar_email_templates.template_report_stage_tracing</field>
+        <field name="report_file">BluStar_email_templates.template_report_stage_tracing</field>
+        <field name="binding_model_id" ref="model_crm_lead"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

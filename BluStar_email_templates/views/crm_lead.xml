@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stage_changes_view_tree" model="ir.ui.view">
+        <field name="name">stage.changes.view.tree.tree</field>
+        <field name="model">track.stage.change</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="prev_stage"/>
+                <field name="new_stage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_lead_view_form" model="ir.ui.view">
+        <field name="name">crm.lead.view.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="tract_stage_changes" string="Track_stage_changes">
+                    <field name="stage_change_ids">
+                        <tree string="Stage Changes">
+                            <field name="user_id"/>
+                            <field name="prev_stage"/>
+                            <field name="new_stage"/>
+                            <field name="date_today"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <!--to be removed-->
+            <xpath expr="//header" position="inside">
+                <button type="object" name="get_report_vals" string="Track Crm Stage"/>
+            </xpath>
+            <!--till here-->
+        </field>
+    </record>
+</odoo>

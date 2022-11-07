@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="check_crm_lead_duration_in_stage" model="ir.cron">
+        <field name="name">CRM: Check lead duration at certain stage</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_lead_duration_in_stage()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <!--check area code-->
+    <record id="check_area_code" model="ir.cron">
+        <field name="name">CRM: Check area code</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_area_code()</field>
+        <field name='interval_number'>7</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>
+    <!--move shadow records to appointment needed-->
+    <!--<record id="from_shadow_to_app_needed" model="ir.cron">
+        <field name="name">CRM: Move Shadow Records to Appointment Needed</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.move_shadow_records()</field>
+        <field name='interval_number'>12</field>
+        <field name='interval_type'>months</field>
+        <field name="numbercall">-1</field>
+    </record>-->
+
+    <!--check app status and move records to cancel and confirm if needed-->
+    <record id="check_app_status_in_crm" model="ir.cron">
+        <field name="name">CRM: Check App Status</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_crm_app_status()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d 14:00:00')"/>
+    </record>
+    <!--check areacode and Move to dead area stage if no areacode found-->
+    <record id="check_areacode_and_move_to_dead_area" model="ir.cron">
+        <field name="name">CRM: Check areacode and move to dead area</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.check_areacode_and_move_to_dead_area()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=5)).strftime('%Y-%m-%d 02:00:00')"/>
+    </record>
+
+    <!--<record id="send_crm_stage_tracking_mail" model="ir.cron">
+        <field name="name">CRM: Send crm stage tracing email</field>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="state">code</field>
+        <field name="code">model.get_report_vals()</field>
+        <field name='interval_number'>1</field>
+        <field name='interval_type'>days</field>
+        <field name="numbercall">-1</field>
+    </record>-->
+</odoo>
