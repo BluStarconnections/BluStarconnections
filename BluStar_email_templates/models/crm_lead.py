@@ -155,8 +155,7 @@ class CrmLead(models.Model):
         dead_area_stage = self.get_stage_id(name='Dead Areas')
         area_codes = [a.name for a in self.env['area.code'].sudo().search([])]
         crm_lead_ids = self.env['crm.lead'].sudo().search(
-            ['&', '&', ('stage_id', '!=', dead_area_stage.id), ('area_code', 'not in', area_codes),
-             ('area_code', '!=', False)])
+            ['&', ('stage_id.name', 'in', ('Shadow Records', 'Appointment Needed')), ('area_code', 'not in', area_codes)])
         if crm_lead_ids:
             for lead in crm_lead_ids:
                 lead.write({'stage_id': dead_area_stage.id})
