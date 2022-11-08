@@ -52,14 +52,14 @@
         <field name="numbercall">-1</field>
         <field name="nextcall" eval="(DateTime.now() + timedelta(days=5)).strftime('%Y-%m-%d 02:00:00')"/>
     </record>
-
-    <!--<record id="send_crm_stage_tracking_mail" model="ir.cron">
+    <!--send email with crm stage movement-->
+    <record id="send_crm_stage_tracking_mail" model="ir.cron">
         <field name="name">CRM: Send crm stage tracing email</field>
         <field name="model_id" ref="model_crm_lead"/>
         <field name="state">code</field>
-        <field name="code">model.get_report_vals()</field>
+        <field name="code">model.send_crm_stage_tracking_email()</field>
         <field name='interval_number'>1</field>
         <field name='interval_type'>days</field>
         <field name="numbercall">-1</field>
-    </record>-->
+    </record>
 </odoo>

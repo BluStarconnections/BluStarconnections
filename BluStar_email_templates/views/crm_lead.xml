@@ -29,11 +29,6 @@
                     </field>
                 </page>
             </xpath>
-            <!--to be removed-->
-            <xpath expr="//header" position="inside">
-                <button type="object" name="get_report_vals" string="Track Crm Stage"/>
-            </xpath>
-            <!--till here-->
         </field>
     </record>
 </odoo>
