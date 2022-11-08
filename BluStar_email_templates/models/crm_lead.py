@@ -99,13 +99,20 @@ class CrmLead(models.Model):
 
     def move_shadow_records(self):
         stage_id = self.get_stage_id(name='Appointment Needed')
-        self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')]).write({'stage_id': stage_id.id})
+        shadow_leads = self.env['crm.lead'].sudo().search([('stage_id.name', '=', 'Shadow Records')])
+        for sh_lead in shadow_leads:
+            sh_lead.write({'stage_id': stage_id.id})
 
     def check_crm_app_status(self):
         cancel_stage = self.get_stage_id(name='Cancel list')
         confirm_stage = self.get_stage_id(name='Confirmed')
-        self.env['crm.lead'].sudo().search([('appt_status', '=', 'Cancel')]).write({'stage_id': cancel_stage.id})
-        self.env['crm.lead'].sudo().search([('appt_status', '=', 'Confirm')]).write({'stage_id': confirm_stage.id})
+        canceled_leads = self.env['crm.lead'].sudo().search([('appt_status', '=', 'Cancel')])
+        for cancel_l in canceled_leads:
+            cancel_l.write({'stage_id': cancel_stage.id})
+
+        confirmed_leads = self.env['crm.lead'].sudo().search([('appt_status', '=', 'Confirm')])
+        for confirm_l in confirmed_leads:
+            confirm_l.write({'stage_id': confirm_stage.id})
 
     def remove_duplicates(self):
         model_id = self.env['crm.lead']
@@ -123,4 +130,5 @@ class CrmLead(models.Model):
             ['&', '&', ('stage_id', '!=', dead_area_stage.id), ('area_code', 'not in', area_codes),
              ('area_code', '!=', False)])
         if crm_lead_ids:
-            crm_lead_ids.write({'stage_id': dead_area_stage.id})
+            for lead in crm_lead_ids:
+                lead.write({'stage_id': dead_area_stage.id})
