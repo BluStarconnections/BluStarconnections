@@ -114,6 +114,34 @@ class CrmLead(models.Model):
         for confirm_l in confirmed_leads:
             confirm_l.write({'stage_id': confirm_stage.id})
 
+    def check_lead_status_n_move(self):
+        """
+        Move leads to relevant stages depending on the app_status
+        TODO: SHahid need to complete it.
+        :return:
+        """
+        leads = self.env['crm.lead'].sudo().search([])
+
+        for lead in leads:
+            if lead.app_stauts == 'Pending':
+                stage_id = self.get_stage_id(name='Pending')
+                lead.write({'stage_id': stage_id.id})
+            elif lead.app_stauts == 'Cancel':
+                stage_id = self.get_stage_id(name='Cancel List')
+                lead.write({'stage_id': stage_id.id})
+            elif lead.app_stauts == 'Confirm':
+                stage_id = self.get_stage_id(name='Confirm')
+                lead.write({'stage_id': stage_id.id})
+            elif lead.app_stauts == 'Paid out':
+                stage_id = self.get_stage_id(name='SAT PAID')
+                lead.write({'stage_id': stage_id.id})
+            elif lead.app_stauts == 'Assigned':
+                stage_id = self.get_stage_id(name='Confirmed')
+                lead.write({'stage_id': stage_id.id})
+            elif lead.app_stauts == 'Credit':
+                stage_id = self.get_stage_id(name='Credit must have notes')
+                lead.write({'stage_id': stage_id.id})
+
     def remove_duplicates(self):
         model_id = self.env['crm.lead']
         all_recs = model_id.sudo().search([])
