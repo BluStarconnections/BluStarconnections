@@ -31,43 +31,47 @@ class CrmLeadInherit(models.Model):
             self.env['track.stage.change'].sudo().create(data_dict)
         return super(CrmLeadInherit, self).write(vals)
 
-    def get_report_vals(self):
+    def send_crm_stage_tracking_email(self):
+        # creating values for report
         date_today = datetime.datetime.today()
         stages_data = self.env['track.stage.change'].sudo().search([('date_today', '=', date_today)], order='lead_id')
-        data = {}
+        data_dict = {}
         for rec in stages_data:
-            if rec.user_id.name not in data:
-                data[rec.user_id.name] = [{
+            if rec.user_id.name not in data_dict:
+                data_dict[rec.user_id.name] = [{
                     'lead': rec.lead_id.name,
                     'prev_stage': rec.prev_stage.name,
                     'new_stage': rec.new_stage.name,
                 }]
             else:
-                data[rec.user_id.name].append({
+                data_dict[rec.user_id.name].append({
                     'lead': rec.lead_id.name,
                     'prev_stage': rec.prev_stage.name,
                     'new_stage': rec.new_stage.name,
                 })
-        return data
-        # return self.env.ref('BluStar_email_templates.action_report_stage_tracking').report_action(self, data=data)
 
-    # def send_stage_tracking_email(self):
-    #     report_content = self.env.ref('BluStar_email_templates.action_report_stage_tracking').sudo()._render_qweb_pdf(
-    #         self.id, data=self.get_report_vals())
-    #     base64pdf = base64.b64encode(report_content[0])
-    #     ir_values = {
-    #         'name': 'Stage Tracking Report',
-    #         'type': 'binary',
-    #         'datas': base64pdf,
-    #         'store_fname': base64pdf,
-    #         'mimetype': 'application/pdf',
-    #         'res_model': 'crm.lead',
-    #         'res_id': self.id
-    #     }
-    #     report_attachment = self.env['ir.attachment'].sudo().create(ir_values)
-    #     email_template = self.env.ref('BluStar_email_templates.crm_stage_tracking_mail')
-    #     if email_template:
-    #         email_template.attachment_ids = [(4, report_attachment.id)]
-    #         email_template.send_mail(self.id, force_send=True)
-    #         email_template.attachment_ids = [(5, 0, 0)]
-    #     return True
+        data = {
+            'data_dict': data_dict,
+        }
+        obj = self.env['crm.lead'].sudo().search([], limit=1)
+
+        # now sending email with report attached
+        report_content = self.env.ref('BluStar_email_templates.action_report_stage_tracking').sudo()._render_qweb_pdf(
+            res_ids=obj, data=data)
+        base64pdf = base64.b64encode(report_content[0])
+        ir_values = {
+            'name': 'Stage Tracking Report',
+            'type': 'binary',
+            'datas': base64pdf,
+            'store_fname': base64pdf,
+            'mimetype': 'application/pdf',
+            'res_model': 'crm.lead',
+            'res_id': self.id
+        }
+        report_attachment = self.env['ir.attachment'].sudo().create(ir_values)
+        email_template = self.env.ref('BluStar_email_templates.crm_stage_tracking_mail')
+        if email_template:
+            email_template.attachment_ids = [(4, report_attachment.id)]
+            email_template.send_mail(self.id, force_send=True)
+            email_template.attachment_ids = [(5, 0, 0)]
+        return True
