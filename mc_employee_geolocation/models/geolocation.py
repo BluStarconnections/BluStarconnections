@@ -21,25 +21,18 @@ class HrAttendance(models.Model):
 
     def get_geolocation(self):
         try:
-            response = requests.get('https://api64.ipify.org?format=json')
+            api_key = '4d51404c56a643868e9bf4d1b4079d52'
+            response = requests.get('https://ipgeolocation.abstractapi.com/v1/?api_key=%s' % api_key)
             if response.status_code == 200:
-                response_data = response.json()
-                _logger.warning(response_data)
-                ip_address = response_data["ip"]
-                _logger.warning(ip_address)
-                ip_response = requests.get(f'https://ipapi.co/{ip_address}/json/')
-                if ip_response.status_code == 200:
-                    data = ip_response.json()
-                    _logger.warning(data)
-                    location_data = {
-                        "current_location": data.get("city", '') + ',' + ' ' + data.get(
-                            "region", '') + ',' + ' ' + data.get(
-                            "country_name", '') + ',' + ' ' + 'lat' + ' ' + str(
-                            data.get("latitude", '0.0')) + ',' + ' ' + 'long' + ' ' + str(data.get("longitude", '0.0'))
-                    }
-                    return location_data.get('current_location')
-                else:
-                    return 'IP address failed to get geo location'
+                data = response.json()
+                _logger.warning(data)
+                location_data = {
+                    "current_location": data.get("city", '') + ',' + ' ' + data.get(
+                        "region", '') + ',' + ' ' + data.get(
+                        "country_name", '') + ',' + ' ' + 'lat' + ' ' + str(
+                        data.get("latitude", '0.0')) + ',' + ' ' + 'long' + ' ' + str(data.get("longitude", '0.0'))
+                }
+                return location_data.get('current_location')
             else:
                 return 'Api failed to get geo location'
         except:
