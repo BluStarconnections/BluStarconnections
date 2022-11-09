@@ -10,5 +10,6 @@ class HrEmployee(models.Model):
 
 class AreaCodes(models.Model):
     _name = 'area.code'
+    _description = 'area codes'
 
     name = fields.Char(string='Area code')

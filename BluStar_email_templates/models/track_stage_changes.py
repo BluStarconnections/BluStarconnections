@@ -6,6 +6,7 @@ from odoo import models, fields
 
 class TrackStageChanges(models.Model):
     _name = 'track.stage.change'
+    _description = 'Track record of changing stages in CRM'
 
     user_id = fields.Many2one('res.users', 'User', default=lambda self: self.env.user.id)
     lead_id = fields.Many2one('crm.lead', 'Lead id', invisible=1)
