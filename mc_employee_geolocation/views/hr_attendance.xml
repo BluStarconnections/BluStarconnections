@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_hr_attendance_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field name="geo_location_check_in"/>
+                <field name="geo_location_check_out"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_hr_employee_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.expense</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_location_id']" position="after">
+                <field name="track_location"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
