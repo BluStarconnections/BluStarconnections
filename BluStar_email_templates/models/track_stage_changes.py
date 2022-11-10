@@ -6,6 +6,7 @@ from odoo import models, fields
 
 class TrackStageChanges(models.Model):
     _name = 'track.stage.change'
+    _description = 'Track record of changing stages in CRM'
 
     user_id = fields.Many2one('res.users', 'User', default=lambda self: self.env.user.id)
     lead_id = fields.Many2one('crm.lead', 'Lead id', invisible=1)
@@ -31,8 +32,8 @@ class CrmLeadInherit(models.Model):
             self.env['track.stage.change'].sudo().create(data_dict)
         return super(CrmLeadInherit, self).write(vals)
 
-    def send_crm_stage_tracking_email(self):
-        # creating values for report
+    # get stage tracking data for report
+    def get_report_vals(self):
         date_today = datetime.datetime.today()
         stages_data = self.env['track.stage.change'].sudo().search([('date_today', '=', date_today)], order='lead_id')
         data_dict = {}
@@ -53,11 +54,16 @@ class CrmLeadInherit(models.Model):
         data = {
             'data_dict': data_dict,
         }
+        return data
+
+    def send_crm_stage_tracking_email(self):
+        # get report values
+        data = self.get_report_vals()
         obj = self.env['crm.lead'].sudo().search([], limit=1)
 
         # now sending email with report attached
         report_content = self.env.ref('BluStar_email_templates.action_report_stage_tracking').sudo()._render_qweb_pdf(
-            res_ids=obj, data=data)
+            res_ids=obj.id, data=data)
         base64pdf = base64.b64encode(report_content[0])
         ir_values = {
             'name': 'Stage Tracking Report',
