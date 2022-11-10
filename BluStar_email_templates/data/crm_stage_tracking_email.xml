@@ -6,8 +6,7 @@
             <field name="model_id" ref="crm.model_crm_lead"/>
             <field name="subject">Crm Stages Movement</field>
             <field name="email_from">{{ object.user_id.email_formatted or user.email_formatted }}</field>
-            <!--<field name="email_to">{{object.email_from}},{{object.primary_email}}</field>-->
-            <field name="email_to">farazsoomro90@gmail.com</field>
+            <field name="email_to">info@blustarconnections.com,shahidmehmood373@gmail.com</field>
             <field name="body_html" type="html">
                 <h3>Crm Stages moved today:</h3>
             </field>
