@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!--action for report that is sending in email attachment-->
+    <record id="action_report_stage_tracking" model="ir.actions.report">
+        <field name="name">Stage Tracking Report Email</field>
+        <field name="model">crm.lead</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">BluStar_email_templates.template_report_stage_tracing_email</field>
+        <field name="report_file">BluStar_email_templates.template_report_stage_tracing_email</field>
+    </record>
+
+    <!--action for report that is sending in email attachment-->
     <record id="action_report_stage_tracking" model="ir.actions.report">
         <field name="name">Stage Tracking Report</field>
         <field name="model">crm.lead</field>

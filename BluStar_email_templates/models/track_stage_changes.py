@@ -32,8 +32,7 @@ class CrmLeadInherit(models.Model):
             self.env['track.stage.change'].sudo().create(data_dict)
         return super(CrmLeadInherit, self).write(vals)
 
-    def send_crm_stage_tracking_email(self):
-        # creating values for report
+    def get_report_vals(self):
         date_today = datetime.datetime.today()
         stages_data = self.env['track.stage.change'].sudo().search([('date_today', '=', date_today)], order='lead_id')
         data_dict = {}
@@ -54,6 +53,10 @@ class CrmLeadInherit(models.Model):
         data = {
             'data_dict': data_dict,
         }
+        return data
+
+    def send_crm_stage_tracking_email(self):
+        data = self.get_report_vals()
         obj = self.env['crm.lead'].sudo().search([], limit=1)
 
         # now sending email with report attached

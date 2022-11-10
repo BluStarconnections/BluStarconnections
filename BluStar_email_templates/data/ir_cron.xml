@@ -39,7 +39,6 @@
         <field name='interval_number'>1</field>
         <field name='interval_type'>days</field>
         <field name="numbercall">-1</field>
-        <field name="nextcall" eval="(DateTime.now() + timedelta(days=2)).strftime('%Y-%m-%d 14:00:00')"/>
     </record>
     <!--check areacode and Move to dead area stage if no areacode found-->
     <record id="check_areacode_and_move_to_dead_area" model="ir.cron">
@@ -50,7 +49,6 @@
         <field name='interval_number'>1</field>
         <field name='interval_type'>weeks</field>
         <field name="numbercall">-1</field>
-        <field name="nextcall" eval="(DateTime.now() + timedelta(days=5)).strftime('%Y-%m-%d 02:00:00')"/>
     </record>
     <!--send email with crm stage movement-->
     <record id="send_crm_stage_tracking_mail" model="ir.cron">
