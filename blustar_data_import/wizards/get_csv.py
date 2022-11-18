@@ -106,7 +106,7 @@ class WizardGetFile(models.TransientModel):
             'state_id': state_id,
             'description': reason,
             'result_code': result,
-            # 'fund_manager': existing_rec[0].fund_manager if existing_rec else '',
+            'fund_manager': existing_rec[0].fund_manager if existing_rec else '',
         }
 
         if existing_rec:
