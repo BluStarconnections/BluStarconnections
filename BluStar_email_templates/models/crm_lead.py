@@ -127,7 +127,7 @@ class CrmLead(models.Model):
                 stage_id = self.get_stage_id(name='Pending')
                 lead.write({'stage_id': stage_id.id if stage_id else lead.stage_id.id})
             elif lead.appt_status == 'Cancel':
-                stage_id = self.get_stage_id(name='Cancel List')
+                stage_id = self.get_stage_id(name='Cancel list')
                 lead.write({'stage_id': stage_id.id if stage_id else lead.stage_id.id})
             elif lead.appt_status == 'Confirm':
                 stage_id = self.get_stage_id(name='Confirmed')
@@ -160,3 +160,11 @@ class CrmLead(models.Model):
         if crm_lead_ids:
             for lead in crm_lead_ids:
                 lead.write({'stage_id': dead_area_stage.id})
+
+        dead_leads = self.env['crm.lead'].sudo().search(
+            ['&', ('stage_id', '=', dead_area_stage.id), ('area_code', 'in', area_codes)])
+        stage_appointment_needed = self.get_stage_id(name='Appointment Needed')
+        if dead_leads:
+            for rec in dead_leads:
+                rec.write({'stage_id': stage_appointment_needed.id})
+
