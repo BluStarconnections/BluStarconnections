@@ -9,6 +9,8 @@
                 <group col="4">
                     <field name="csv_file"/>
                     <field name="model_name"/>
+                    <field name="stage_id" required="True" widget="selection"/>
+                    <field name="appt_status" required="True"/>
                 </group>
                 <footer>
                     <button string="Import" type="object" name="import_csv" class="oe_highlight"/>
