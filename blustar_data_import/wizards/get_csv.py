@@ -139,6 +139,7 @@ class WizardGetFile(models.TransientModel):
             'description': reason,
             'result_code': result,
             'fund_manager': existing_rec[0].fund_manager if existing_rec else '',
+            'appointment_type': existing_rec[0].appointment_type if existing_rec else 'F2F',
         }
 
         if existing_rec:
